@@ -1,0 +1,50 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* css para catalogo */
+
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Filtros ocupan 1 columna, muebles 3 */
+    gap: 20px;
+    padding: 20px;
+}
+
+.filtros {
+    grid-column: 1 / 2; /* Ocupa la primera columna */
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.muebles {
+    grid-column: 2 / 5; /* Ocupa las columnas restantes */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas para los muebles */
+    gap: 20px;
+}
+
+.mueble {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.mueble img {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}

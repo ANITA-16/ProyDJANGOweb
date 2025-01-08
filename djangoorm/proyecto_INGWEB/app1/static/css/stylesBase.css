@@ -1,0 +1,216 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* ENCABEZADO CON IMAGEN DE FONDO */
+.encabezado {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.imagen-fondo {
+    background: url('/static/img/imagenBase.png') no-repeat center center; /* Imagen centrada */
+    background-size: cover; /* Escalar la imagen para cubrir todo el fondo */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+    z-index: 1;
+}
+
+
+.imagen-fondo::after {
+    content: '';
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.logo {
+    font-size: 2.8rem;
+    font-weight: bold;
+    z-index: 2;
+    color: #000000;
+}
+
+.barra-busqueda input {
+    z-index: 2;
+    position: relative; /* Por si hay contenedores problemáticos */
+    margin-top: 1rem;
+    padding: 0.7rem;
+    width: 500px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    pointer-events: auto;
+}
+
+.texto-eslogan {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    z-index: 2;
+    font-style: italic;
+    }
+/* BARRA DE NAVEGACIÓN */
+.barra-navegacion {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.logo-navegacion {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icono {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.nombre-empresa {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.enlaces-navegacion {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.enlaces-navegacion a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.enlaces-navegacion a:hover {
+    color: #7a66e6;
+}
+
+/* Botones generales */
+.boton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: opacity 0.3s ease; /* Transición suave */
+}
+
+/* BotONES inicio registro y cierre de sesion */
+.boton.iniciar-sesion{
+    background-color: #1d2b87;
+    color: #ffffff ;  
+}
+.registro-sesion {
+    background-color: #f3f3f3;
+    color: #333;
+    border: 1px solid #ccc; /* Borde sutil para destacar el botón */
+}
+.boton.cerrar-sesion{
+    background-color: #1d2b87;
+    color: #ffffff;  
+}
+/* Estilo adicional para hover */
+.boton:hover {
+    opacity: 0.7; /* Cambio suave de opacidad */
+}
+
+
+
+/********************* CSS PARA INDEX ***************/
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F9F5ED;
+    color: #333;
+}
+
+.destacados {
+    text-align: center;
+    margin: 20px;
+    background-color: #F9F5ED;
+}
+
+section.destacados {
+    text-align: center;
+    margin: 20px;
+    background-color: #F9F5ED;
+}
+
+.destacados-contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.mueble {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    background-color: #fff;
+}
+
+.mueble-imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.mueble-info {
+    margin-top: 10px;
+}
+
+.mueble-info h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.mueble-info p {
+    font-size: 0.9rem;
+    margin: 2px 0;
+}
+
+/* Estilos específicos para cada tipo de mueble */
+.mueble-popular {
+    background-color: #f9f9ff;
+}
+
+.mueble-calificado {
+    background-color: #fff9f9;
+}
+
+.mueble-oferta {
+    background-color: #f9fff9;
+}

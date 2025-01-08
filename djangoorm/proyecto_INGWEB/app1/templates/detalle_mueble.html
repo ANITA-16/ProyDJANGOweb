@@ -1,0 +1,34 @@
+{% extends 'base.html' %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesCatalogo.css' %}">
+    
+</head>
+<body>
+    
+
+    {% block title %}{{ mueble.nombre }} - Detalles{% endblock %}
+
+    {% block content %}
+    <section>
+        <h2>{{ mueble.nombre }}</h2>
+        <p>{{ mueble.descripcion }}</p>
+        <p><strong>Precio:</strong> ${{ mueble.precio }}</p>
+        <p><strong>Disponible:</strong> {{ mueble.disponible|yesno:"Sí,No" }}</p>
+        <p><strong>Cantidad en stock:</strong> {{ mueble.cantidad }}</p>
+        <p><strong>Categoría:</strong> {{ mueble.categoria.nombre }}</p>
+        <p><strong>Proveedor:</strong> {{ mueble.proveedor.nombre }}</p>
+        <div class="imagenes">
+            {% for imagen in mueble.imagenes.all %}
+                <img src="{{ imagen.imagen.url }}" alt="Imagen de {{ mueble.nombre }}">
+            {% endfor %}
+        </div>
+        <a href="{% url 'catalogo' %}">Volver al catálogo</a>
+    </section>
+    {% endblock %}
+</body>
+</html>

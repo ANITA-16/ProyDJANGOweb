@@ -1,0 +1,74 @@
+/* Reset basico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F9F5ED;
+    color: #333;
+}
+
+.destacados {
+    text-align: center;
+    margin: 20px;
+    background-color: #F9F5ED;
+}
+
+section.destacados {
+    text-align: center;
+    margin: 20px;
+    background-color: #F9F5ED;
+}
+
+.destacados-contenedor {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.mueble {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    background-color: #fff;
+}
+
+.mueble-imagen {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.mueble-info {
+    margin-top: 10px;
+}
+
+.mueble-info h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.mueble-info p {
+    font-size: 0.9rem;
+    margin: 2px 0;
+}
+
+/* Estilos específicos para cada tipo de mueble */
+.mueble-popular {
+    background-color: #f9f9ff;
+}
+
+.mueble-calificado {
+    background-color: #fff9f9;
+}
+
+.mueble-oferta {
+    background-color: #f9fff9;
+}
