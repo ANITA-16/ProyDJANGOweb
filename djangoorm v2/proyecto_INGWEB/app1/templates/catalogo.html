@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesBase.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesCatalogo.css' %}">
+</head>
+<body>
+
+    <!-- Barra de navegacion 2 -->
+    <nav class="barra-navegacion">
+        <div class="logo-navegacion">
+            <span class="logo-icono">🪑</span> 
+            <span class="nombre-empresa">DesingTimber</span>
+        </div>
+        <ul class="enlaces-navegacion">
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+            <li><a href="#">Diseña</a></li>
+            <li><a href="#">Favoritos</a></li>
+            
+            <!-- Barra de búsqueda -->
+            <div class="barra-busqueda-2">
+                <input type="text" placeholder="🔍 Buscar..." class="barra-busqueda-2-input">
+            </div>
+
+            <!-- Carrito -->
+            <div class="cart">
+                <button class="cart-btn">
+                    <img src="{% static 'img/bolsa-compras-icon.avif' %}" alt="Carrito" class="cart-icon">
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+
+            <!-- Botón de usuario -->
+            <div class="user">
+                <button class="user-btn">
+                    <img src="{% static 'img/user-icon-png.webp' %}" alt="Usuario" class="user-icon">
+                    <span class="user-name">{{ username }}</span>
+                </button>
+            </div>
+
+            {% if user.is_authenticated %}
+                <li><a class="boton cerrar-sesion" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a></li>
+            {% else %}
+                <li><a class="boton iniciar-sesion" href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a></li>
+                <li><a class="boton registro-sesion" href="{% url 'registro' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+        
+    </nav>
+
+<section class="catalogo">
+    <!-- Filtros -->
+    <div>
+        <h3>Popular en muebles</h3>
+        <ul>
+            <li>Mueble1</li>
+            <li>Mueble2</li>
+            <li>Mueble3</li>
+            <li>Mueble4</li>
+            <li>Mueble5</li>
+        </ul>
+        
+        <h3>Precios</h3>
+        <ul>
+            <li>50$-100$</li>
+            <li>100$-150$</li>
+            <li>150$-200$</li>
+            <li>200$+</li>
+        </ul>
+
+        <h3>Colores</h3>
+        <ul>
+            <li><input type="checkbox" /> Azul</li>
+            <li><input type="checkbox" /> Marrón</li>
+            <li><input type="checkbox" /> Naranja</li>
+            <li><input type="checkbox" /> Amarillo</li>
+        </ul>
+
+        <h3>Contáctenos:</h3>
+        <p>
+            <ul>
+                <li>Soporte: 0998586018</li>
+                <li> <a href="web.whatsapp.com" >whatsapp</a> Linea de ayuda</li>
+                <li></li>
+            </ul>
+        </p>
+    </div>
+
+    <!-- Lista de Muebles -->
+    <div class="catalogo__muebles">
+        {% for mueble in muebles %}
+            <div class="mueble">
+                <img src="{{ mueble.imagen_set.all.0.imagenURL }}" alt="Imagen de {{ mueble.nombre }}">
+                <div class="detalles_principales">
+                    <h3>{{ mueble.nombre }}</h3>
+                    <p>{{ mueble.descripcion|truncatechars:100 }}</p>
+                    <p><strong>Precio:</strong> ${{ mueble.precio_original }}</p>
+                    {% if mas_popular.precio_original != mueble.precio_actual %}
+                        <p><strong>Precio de oferta:</strong> ${{ mueble.precio_actual }}</p>
+                    {% endif %}        
+                    <a href="{% url 'detalle_mueble' mueble.id %}">Ver detalles</a>
+                </div>   
+            </div>
+        {% empty %}
+            <p>No hay muebles disponibles en este momento.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+</body>
+</html>

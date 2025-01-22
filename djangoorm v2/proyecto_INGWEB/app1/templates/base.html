@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DesingTimber{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesBase.css' %}">
+</head>
+
+<body>
+     <!-- Encabezado principal -->
+     <header class="encabezado">
+        <!-- Imagen de fondo y contenido -->
+        <div class="imagen-fondo">
+            <h1 class="logo">DesingTimber</h1>
+            <div class="barra-busqueda">
+                <input type="text" placeholder="🔍 Buscar" aria-label="Buscar">
+            </div>
+            <p class="texto-eslogan">
+                "Tus muebles de ensueño en la página de tus sueños..."
+            </p>
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav class="barra-navegacion">
+        <div class="logo-navegacion">
+            <span class="logo-icono">🪑</span> 
+            <span class="nombre-empresa">DesingTimber</span>
+        </div>
+        <ul class="enlaces-navegacion">
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+            <li><a href="#">Diseña</a></li>
+            <li><a href="#">Favoritos</a></li>
+        
+            {% if user.is_authenticated %}
+            
+                <li><a class="boton cerrar-sesion" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a></li>
+            {% else %}
+                <li><a class="boton iniciar-sesion" href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a></li>
+                <li><a class="boton registro-sesion" href="{% url 'registro' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+        
+    </nav>
+
+    <!-- Contenido principal -->
+    <main>
+        {% block content %}
+        <!-- Contenido dinámico de cada página -->
+        {% endblock %}
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="pie-pagina">
+        <p>&copy; 2024 DesingTimber. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

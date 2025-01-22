@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% extends 'base.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesBase.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylesIndex.css' %}">
+</head>
+
+<body>
+
+    {% block title %}Inicio - Muebles Destacados{% endblock %}
+
+    {% block content %}
+    <section class="destacados">
+        <h2 class="tituloDestacados">Descubre lo mejor de nuestra <br> web...</h2>
+        
+        <div class="destacados-contenedor">
+            <!-- Más Popular -->
+            {% if mas_popular %}
+            <div class="mueble mueble-popular">
+                <h3>Más Popular</h3>
+                <img src="{{ mas_popular.imagen_set.all.0.imagenURL }}" alt="{{ mas_popular.nombre }}" class="mueble-imagen">
+                <div class="mueble-info">
+                    <h4>{{ mas_popular.nombre }}</h4>
+                    <p>${{ mas_popular.precio_original }}</p>
+                    <!--VERIFICAR SI ESTO ESTABA EN EL FIGMA :3-->
+                    {% if mas_popular.precio_original != mas_popular.precio_actua %}
+                        <p>${{ mas_popular.precio_actual }}</p>
+                    {% endif %}
+                    <p><strong>Popularidad:</strong> {{ mas_popular.popularidad }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p>No hay muebles populares disponibles.</p>
+            {% endif %}
+
+            <!-- Mejor Calificado -->
+            {% if mejor_calificado %}
+            <div class="mueble mueble-calificado">
+                <h3>Mejor Calificado</h3>
+                <img src="{{ mejor_calificado.imagen_set.all.0.imagenURL }}" alt="{{ mejor_calificado.nombre }}" class="mueble-imagen">
+                <div class="mueble-info">
+                    <h4>{{ mejor_calificado.nombre }}</h4>
+                    <p>${{ mejor_calificado.precio_original }}</p>
+                    <p><strong>Calificación Promedio:</strong> {{ mejor_calificado.calificacion_promedio }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p>No hay muebles calificados disponibles.</p>
+            {% endif %}
+
+            <!-- Mejor Oferta -->
+            {% if mejor_oferta %}
+            <div class="mueble mueble-oferta">
+                <h3>Mejor Oferta</h3> 
+                <img src="{{ mejor_oferta.imagen_set.all.0.imagenURL }}" alt="Imagen de {{ mejor_oferta.nombre }}" class="mueble-imagen">
+                <div class="mueble-info">
+                    <h4>{{ mejor_oferta.nombre }}</h4>
+                    <p><strong>Precio Original:</strong> ${{ mejor_oferta.precio_original }}</p>
+                    <p><strong>Descuento:</strong> {{ mejor_oferta.descuento }}%</p>
+                    <p><strong>Precio Actual:</strong> ${{ mejor_oferta.precio_actual }}</p>
+                </div>
+            </div>
+            {% else %}
+            <p>No hay muebles en oferta disponibles.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    {% endblock %}
+</body>
+</html>
