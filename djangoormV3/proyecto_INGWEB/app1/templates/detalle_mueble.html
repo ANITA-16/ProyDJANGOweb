@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesDetalleMueble.css' %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+</head>
+<body>
+    {% block title %}{{ mueble.nombre }} - Detalles{% endblock %}
+
+    {% block content %}
+    <section class="contenido_detalle">
+        <section class="detalle-mueble"> <!-- Contenedor principal -->
+            <!-- fila para la información del mueble --> 
+            <div class="info-mueble">
+                <h1>{{ mueble.nombre }}</h1>
+                <p class="proveedor">Distribuido por {{ mueble.proveedor.nombre|upper }}</p>
+                <div class="precio-detalle">
+                    <span class="precio-actual">${{ mueble.precio_actual }}</span>
+                    <span class="descuento">Ahorra {{ mueble.descuento }}%</span>
+                    <p class="precio-original">Precio sin descuento {{ mueble.precio_original}}</p>
+                </div>
+                <p>{{ mueble.descripcion }}</p>
+                <p><strong>Disponible:</strong> {{ mueble.disponible|yesno:"Sí,No" }}</p>
+                <p><strong>Cantidad en stock:</strong> {{ mueble.cantidad }}</p>
+                <p><strong>Categoría:</strong> {{ mueble.categoria.nombre }}</p>
+
+                <div class="btns">
+                    <div>
+
+                        <form method="POST" action="{% url 'toggle_like' mueble.id %}" >
+                            {% csrf_token %}
+                            <button type="submit" class="btn-like {% if request.user in mueble.likes.all %}liked{% endif %}" data-id="{{ mueble.id }}">
+                                🖤 Me gusta
+                            </button>
+                            <span id="like-count-{{ mueble.id }}">{{ mueble.popularidad }}</span> Me gusta
+                        </form>
+                                 
+                    </div>
+                    
+                    <button class="btn-agregar">
+                        🛒 Agregar al Carrito
+                    </button>
+                </div>        
+            </div>
+
+            <!--imagenes del mueble Carrusel-->
+            <div class="custom-carousel">
+                <div class="carousel-container">
+                    <!-- Contenedor de las imágenes -->
+                    {% for imagen in mueble.imagen_set.all %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ imagen.imagenURL }}" alt="Imagen de {{ mueble.nombre }}">
+                    </div>
+                    {% empty %}
+                    <div class="carousel-item active">
+                        <p class="text-center">No hay imágenes disponibles.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Botones de control -->
+                <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="next" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </section>
+        
+        <section class="detalle-resenas"> 
+            <div class="resenas">
+                <h2>Reseñas</h2>
+                {% if user.is_authenticated %}
+                <form method="post" class="formulario_resenas">
+                    {% csrf_token %}
+                    <textarea name="comentario" placeholder="Escribe tu reseña aquí..." required></textarea>
+                    <label for="calificacion">Calificación:</label>
+                    <select name="calificacion" id="calificacion" required>
+                        <option value="5">5 - Excelente</option>
+                        <option value="4">4 - Muy bueno</option>
+                        <option value="3">3 - Bueno</option>
+                        <option value="2">2 - Regular</option>
+                        <option value="1">1 - Malo</option>
+                    </select>
+                    <button type="submit">Enviar Reseña</button>
+                </form>
+                {% else %}
+                <p>Inicia sesión para dejar una reseña.</p>
+                {% endif %}
+                
+                {% if criticas %}
+                <ul class="lista-resenas">
+                    {% for critica in criticas %}
+                    <li class="resena">
+                        <p><strong>{{ critica.usuario.username }}</strong> - {{ critica.fecha|date:"d/m/Y" }}</p>
+                        <div class="calificacion">
+                            {% for i in "12345"|slice:critica.calificacion %}
+                            <i>⭐</i>
+                            {% endfor %}
+                        </div>
+                        <p>{{ critica.comentario }}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No hay reseñas para este mueble.</p>
+                {% endif %}
+            </div>
+        </section>
+    </section>
+    <a class="volver-catalogo" href="{% url 'catalogo' %}">⬅ Volver al Catálogo</a>
+      
+    
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener todos los botones de "Me gusta"
+        document.querySelectorAll(".btn-like").forEach(button => {
+            button.addEventListener("click", function() {
+                let muebleId = this.getAttribute("data-id");
+                let likeCount = document.getElementById(`like-count-${muebleId}`);
+                let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    
+                fetch(`/muebles/toggle_like/${muebleId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        if (data.liked) {
+                            button.classList.add("liked");
+                            button.innerHTML = "❤️ Me gusta"; 
+                        } else {
+                            button.classList.remove("liked");
+                            button.innerHTML = "🖤 Me gusta"; 
+                        }
+                        likeCount.innerText = data.new_likes;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+    });
+    </script>  
+    
+
+    {% endblock %}
+</body>
+</html>

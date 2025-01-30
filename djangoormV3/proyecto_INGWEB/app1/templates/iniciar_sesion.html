@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesLogin.css'%}">
+</head>
+<body>
+    <div class="container">
+
+        <div class="login-form">
+            <h2>Iniciar Sesión</h2>
+            <p class="parrafo-login">Inicie sesión para acceder a todas las herramientas de la app</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="id_username">Usuario</label>
+                    <input type="text" name="username" id="id_username" required>
+                </div>
+                    
+                <div class="input-group">
+                    <label for="id_password">Contraseña</label>
+                    <input type="password" name="password" id="id_password" required>
+                </div>
+    
+                <button type="submit" class="btn">Iniciar Sesión</button>
+    
+                <p class="register-link">
+                    ¿No tienes una cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a>
+                </p>
+            </form>
+            
+        </div>
+
+        <div class="image-section">
+
+            <img src="{% static 'img/login-image.png' %}" alt="Imagen de inicio de sesión">
+        
+        </div>
+    </div>
+</body>
+</html>

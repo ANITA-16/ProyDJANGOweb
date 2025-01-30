@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% extends 'base.html' %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesDestacados.css' %}">
+</head>
+
+<body>
+
+    {% block title %}Inicio - Muebles Destacados{% endblock %}
+
+    {% block content %}
+    <section class="destacados">
+        <h2 class="tituloDestacados">Descubre lo mejor de nuestra <br> web...</h2>
+        
+        <div class="destacados-contenedor">
+            <!-- Más Popular -->
+            {% if mas_popular %}
+            <a href="{% url 'detalle_mueble' mas_popular.id %}" class="mueble">
+                <div class="mueble">
+                    <img src="{{ mas_popular.imagen_set.all.0.imagenURL }}" alt="{{ mas_popular.nombre }}">
+                    <div class="mueble-info">
+                        <h4>{{ mas_popular.nombre }}</h4>
+                        <samp>Mas Popular</samp>
+                        <div class="iconos">
+                            <span>❤️ {{ mas_popular.popularidad }}</span>
+                            <span>💲{{ mas_popular.precio_original }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+
+            <!-- Mejor Calificado -->
+            {% if mejor_calificado %}
+            <a href="{% url 'detalle_mueble' mejor_calificado.id %}" class="mueble">
+                <div class="mueble">
+                    <img src="{{ mejor_calificado.imagen_set.all.0.imagenURL }}" alt="{{ mejor_calificado.nombre }}">
+                    <div class="mueble-info">
+                        <h4>{{ mejor_calificado.nombre }}</h4>
+                        <samp>Mejor Rankeado</samp>
+                        <div class="iconos">
+                            <span>💲{{ mejor_calificado.precio_original }}</span>
+                            <samp>{{ mejor_calificado.calificacion_promedio }}</samp>
+                            <div class="estrellas">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= mejor_calificado.calificacion_promedio %}
+                                        <span class="estrella">★</span>
+                                    {% else %}
+                                        <span class="estrella" style="color: gray;">★</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endif %}
+
+            <!-- Mejor Oferta -->
+            {% if mejor_oferta %}
+            <a href="{% url 'detalle_mueble' mejor_oferta.id %}" class="mueble">
+                <div class="mueble">
+                    <img src="{{ mejor_oferta.imagen_set.all.0.imagenURL }}" alt="{{ mejor_oferta.nombre }}">
+                    <div class="mueble-info">
+                        <h4>{{ mejor_oferta.nombre }}</h4>
+                        <samp>Mejor Oferta</samp>
+                        <div class="iconos">
+                            <span>💲<del>{{ mejor_oferta.precio_original }}</del> <strong>{{ mejor_oferta.precio_actual }}</strong></span>
+                            <span>🔥 {{ mejor_oferta.descuento }}% OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endif %}
+
+        </div>
+    </section>
+
+    {% endblock %}
+</body>
+
+</html>

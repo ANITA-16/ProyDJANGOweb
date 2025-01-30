@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylesReguistro.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sección de la imagen -->
+        <div class="image-section">
+            <img src="{% static 'img/registro-image.png' %}" alt="Registro">
+        </div>
+        
+        <!-- Sección del formulario -->
+        <div class="register-form">
+            <h2>Regístrate</h2>
+            <p class="parrafo-login">Ingrese sus datos para crear una cuenta.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="input-group">
+                    <label for="id_first_name">Nombre</label>
+                    <input type="text" name="first_name" id="id_first_name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="id_last_name">Apellido</label>
+                    <input type="text" name="last_name" id="id_last_name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_username">Usuario</label>
+                    <input type="text" name="username" id="id_username" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password1">Contraseña</label>
+                    <input type="password" name="password1" id="id_password1" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="id_password2">Confirmar Contraseña</label>
+                    <input type="password" name="password2" id="id_password2" required>
+                </div>
+
+                <button type="submit" class="btn">Crear Cuenta</button>
+
+                <p class="register-link">
+                    ¿Ya tienes una cuenta? <a href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a>
+                </p>
+            </form>
+        </div>
+
+        
+    </div>
+
+</body>
+</html>

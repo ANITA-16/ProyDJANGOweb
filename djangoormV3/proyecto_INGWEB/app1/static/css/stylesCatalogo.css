@@ -1,0 +1,287 @@
+/* Estructura general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAF5EB;
+}
+
+.catalogo {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+    padding: 20px;
+    flex-direction: row;
+}
+
+/* Estilos para los filtros */
+.catalogo > div:first-child {
+    background-color: #F9F5ED;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.catalogo > div:first-child h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.catalogo > div:first-child ul {
+    list-style: none;
+    padding: 0;
+}
+
+.catalogo > div:first-child li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.filtros {
+    position: -webkit-sticky; /* Para navegadores antiguos */
+    position: sticky;
+    top: 0;  /* Esto hace que el filtro se quede en la parte superior */
+    height: 100vh; /* Puedes ajustar la altura del filtro si es necesario */
+    overflow-y: auto; /* Si el contenido del filtro es largo, permitirá el scroll dentro del filtro */
+    flex-shrink: 0; /* Evita que el filtro se encoja */
+}
+
+/* Estilos de los muebles */
+.catalogo__muebles {
+    display: inline-grid; /* Hace que el contenedor se ajuste al contenido */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    justify-content: center; /* Centra los elementos en la fila */
+    padding: 20px 0;
+}
+
+.muebleC {
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    text-align: center;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+}
+
+.muebleC:hover {
+    transform: scale(1.05);
+}
+
+.detalles_principales{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.muebleC img {
+    max-width: 100%;
+    border-radius:30px;
+    margin-bottom: 15px;
+}
+
+.muebleC h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.muebleC p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.muebleC a {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #6C757D;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.muebleC a:hover {
+    background-color: #495057;
+}
+
+/* CONTENIDO DE LA barra de busqueda 2 osea la de catalogo  */
+.enlaces-navegacion {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.enlaces-navegacion a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s;
+    position:relative;
+}
+
+.enlaces-navegacion a:hover {
+    color: #7a66e6;
+}
+
+/* Barra de búsqueda 2 */
+.barra-contenedor{
+    display: flex;
+    flex-direction: column; /* Los elementos se apilan verticalmente */
+}
+
+.barra-busqueda-2 {
+    flex: 1;
+    position: relative;
+}
+
+.barra-busqueda-2-input {
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #D0BCA3; /* Color beige */
+    color: #333;
+    font-size: 14px;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.barra-busqueda-2-input::placeholder {
+    color: #666;
+}
+
+
+
+
+.resultados-busqueda-2 {
+    position: absolute;/* Lo hace flotante en relación al contenedor más cercano con position: relative */
+    top: 50px;
+    max-width: 400px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-top: 5px;
+    z-index: 10;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Estilo de cada resultado */
+.resultado-item {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+
+/* Carrito */
+.cart {
+    position: relative;
+}
+
+.cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon {
+    width: 35px;
+    height: 35px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* Usuario */
+.user {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+}
+
+.user-icon {
+    width: 40px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+.user-name {
+    font-size: 14px;
+    color: #333;
+}
+
+/*FILTROS*/
+.filtros{
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}
+
+.filtros h3 {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    width: 100%;
+    background-color:#9D94675C;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 0.3rem 0;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+    color: #71879f;
+}
+
+
